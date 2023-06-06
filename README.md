@@ -34,11 +34,12 @@ Como primeiro passo faça um ***fork*** desse projeto na sua conta do GitHub, se
 </br>
 ***Não iremos avaliar provas que não estejam nesse padrão, então MUITA ATENÇÃO nessa dica.***
 #### Correção
-Ao término da prova, ***abra um PR (Pull Request)***, é assim que iremos avaliar o código proposto.
-Não serão avaliados testes sem testes unitários
-Mostre como usar orientação a objetos da forma correta.
-A persistência é em um banco relacional, sendo assim gostaria de ver como utilizar esse meio de acesso sem ORM.
-Mostre o funcionamento do gerenciamento de versão das atualizações do banco de dados.
+- Ao término da prova, ***abra um PR (Pull Request)***, é assim que iremos avaliar o código proposto.
+- Não serão avaliados testes sem testes unitários
+- Mostre como usar orientação a objetos da forma correta.
+- A persistência é em um banco relacional, sendo assim gostariamos de ver como utiliza esse meio de acesso sem ORM.
+- Mostre o funcionamento do gerenciamento de versão das atualizações do banco de dados.
+- docker-compose criado
 #### Configurações
 - Minimo OpenJDK 17 instalado;
 - Maven na versão 3.8+ instalado;
