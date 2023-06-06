@@ -15,4 +15,5 @@
 *.pb
 /.idea/encodings.xml
 /.idea/compiler.xml
+/.idea
 /core/src/test/resources/application-it.properties
