@@ -35,11 +35,15 @@ Como primeiro passo faça um ***fork*** desse projeto na sua conta do GitHub, se
 ***Não iremos avaliar provas que não estejam nesse padrão, então MUITA ATENÇÃO nessa dica.***
 #### Correção
 - Ao término da prova, ***abra um PR (Pull Request)***, é assim que iremos avaliar o código proposto.
-- Não serão avaliados testes sem testes unitários
-- Mostre como usar orientação a objetos da forma correta.
+- Não serão avaliados testes sem testes unitários.
+- Mostre como usar orientação a objetos da forma correta, separação de responsabilidades.
+- Mostre como deveriamos aplicação composição e herança.
 - A persistência é em um banco relacional, sendo assim gostariamos de ver como utiliza esse meio de acesso sem ORM.
-- Mostre o funcionamento do gerenciamento de versão das atualizações do banco de dados.
+- Mostre o funcionamento do gerenciamento de versão das atualizações do banco de dados automatizado.
 - docker-compose criado
+- Redundância e Escalabilidade da API:
+  - Mínimo de 2 instâncias;
+  - Endpoint de `HealthCheck` das máquinas;
 #### Configurações
 - Minimo OpenJDK 17 instalado;
 - Maven na versão 3.8+ instalado;
@@ -48,6 +52,7 @@ Como primeiro passo faça um ***fork*** desse projeto na sua conta do GitHub, se
 
 #### Testes
 Para rodar os testes (unitários e de integração) utilize o comando a seguir:
+Se atentar a diferença dos testes acima citados.
 ```
 mvn clean verify
 ```
@@ -57,11 +62,7 @@ Será considerado um plus os candidatos que entregarem:
 - Bom uso dos padrões de REST;
 - Refatorar para Arquitetura Hexagonal/Clean Arch
 - Uso de BDD para escrever os testes de integração;
-- Redundância e Escalabilidade da API:
-    - Mínimo de 2 instâncias;
-    - Balanceamento de carga usando alguma técnica de Round Robin;
-    - Endpoint de `HealthCheck` das máquinas;
-    - (Opcional) Monitoramento das máquinas.
+- (Opcional) Monitoramento das máquinas.
 - Cache Distribuído:
     - Utilizar algum mecanismo de cache distribuído na camada de banco de dados. 
  
