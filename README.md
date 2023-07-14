@@ -37,7 +37,7 @@ Como primeiro passo faça um ***fork*** desse projeto na sua conta do GitHub, se
 - Ao término da prova, ***abra um PR (Pull Request)***, é assim que iremos avaliar o código proposto.
 - Não serão avaliados testes sem testes unitários.
 - Mostre como usar orientação a objetos da forma correta, separação de responsabilidades.
-- Mostre como deveriamos aplicação composição e herança.
+- Mostre como aplicar composição vs herança no projeto.
 - A persistência é em um banco relacional, sendo assim gostariamos de ver como utiliza esse meio de acesso sem ORM.
 - Mostre o funcionamento do gerenciamento de versão das atualizações do banco de dados automatizado.
 - docker-compose criado
