@@ -30,11 +30,11 @@ Agora sim, terminamos! Se você nos entregar isso que pedimos garanto que o Sr. 
 Leia essas instruções para ganhar tempo no desenvolvimento, ok? ;)
 </br>
 #### Primeiro Passo
-Como primeiro passo faça um ***fork*** desse projeto na sua conta do GitHub, se não tiver uma conta é só criar uma nova.
+Como primeiro passo faça ***checkout*** desse projeto e suba na sua conta do GitHub como repositório ***privado***, se não tiver uma conta é só criar uma nova.
 </br>
 ***Não iremos avaliar provas que não estejam nesse padrão, então MUITA ATENÇÃO nessa dica.***
 #### Correção
-- Ao término da prova, ***abra um PR (Pull Request)***, é assim que iremos avaliar o código proposto.
+- Ao término da prova, ***adicione o usuário gubeemarketplace como colaborador ***, é assim que iremos avaliar o código proposto.
 - Não serão avaliados testes sem testes unitários.
 - Mostre como usar orientação a objetos da forma correta, separação de responsabilidades.
 - Mostre como aplicar composição vs herança no projeto.
