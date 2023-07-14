@@ -34,7 +34,7 @@ Como primeiro passo faça ***checkout*** desse projeto e suba na sua conta do Gi
 </br>
 ***Não iremos avaliar provas que não estejam nesse padrão, então MUITA ATENÇÃO nessa dica.***
 #### Correção
-- Ao término da prova, ***adicione o usuário gubeemarketplace como colaborador ***, é assim que iremos avaliar o código proposto.
+- Ao término da prova, ***adicione o usuário gubeemarketplace como colaborador***, é assim que iremos avaliar o código proposto.
 - Não serão avaliados testes sem testes unitários.
 - Mostre como usar orientação a objetos da forma correta, separação de responsabilidades.
 - Mostre como aplicar composição vs herança no projeto.
