@@ -9,7 +9,7 @@ public class Hero {
 	
 	private String name;
 	
-	private String race;
+	private RaceEnum race;
 	
 	private PowerStats stats;
 	
@@ -18,41 +18,50 @@ public class Hero {
 	private Date createdAt;
 	
 	private Date updatedAt;
-	
 
-	public Hero(UUID id, String name, String race, PowerStats stats) {
+	public Hero(String name, String race, PowerStats stats) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.race = race;
+		this.id = UUID.randomUUID();
+		this.name = setValidName(name);
+		this.race = setValidRace(race);
 		this.stats = stats;
 		this.enabled = true;
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 	}
+	
+	private String setValidName(String name) {
+		if (name == null || name.trim().isEmpty()) {
+			throw new RuntimeException("Nome deve ser informado");
+		} else if (name.trim().length() > 255) {
+			throw new RuntimeException("Nome muito grande");
+		} else {
+			return name.trim();
+		}
+	}
+	
+	private RaceEnum setValidRace(String race) {
+		if (race == null || race.trim().isEmpty()) {
+			throw new RuntimeException("Raça deve ser informada");
+		} 
+		
+		return RaceEnum.valueOf(race.trim().toUpperCase());
+	}
 
 	public UUID getId() {
 		return id;
-	}
-	
-	public void setId(UUID id) {
-		this.id = id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String getRace() {
+	public RaceEnum getRace() {
 		return race;
 	}
 
 	public PowerStats getStats() {
 		return stats;
-	}
-	
-	public void setStats(PowerStats stats) {
-		this.stats = stats;
 	}
 	
 	public UUID getStatsId() {

@@ -1,0 +1,32 @@
+spring: 
+  application:
+    name: Gubee backend test
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+    mapper:
+      propagate-transient-marker: true
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non-null
+  flyway:
+    enabled: true
+    schemas:
+    - interview_service
+    locations:
+    - classpath:db/schema/migration
+
+## Server properties
+server: 
+  compression:
+    enabled: true
+    mime-types:
+    - application/json
+  http2:
+    enabled: true
+
+#JDBC
+jdbc:
+  url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+  username: ${SPRING_DATASOURCE_USERNAME:gubee}
+  password: ${SPRING_DATASOURCE_PASSWORD:gubee}
+  schema: interview_service

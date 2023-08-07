@@ -1,7 +1,5 @@
 package br.com.gubee.interview.adapters.repository;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,18 +15,15 @@ public class PowerStatsRepository implements PowerStatsRepositoryPort {
 	@Override
 	public PowerStats save(PowerStats stats) {
 				
-			UUID id = UUID.randomUUID();
 			jdbcTemplate.update("INSERT INTO power_stats (id, strength, agility, dexterity, intelligence, created_at, updated_at) " +
 			          "VALUES (?, ?, ?, ?, ?, ?, ?)",
-			          id,
+			          stats.getId(),
 			          stats.getStrength(),
 			          stats.getAgility(),
 			          stats.getDexterity(),
 			          stats.getIntelligence(),
 			          stats.getCreatedAt(),
-			          stats.getUpdatedAt());
-			stats.setId(id);
-		
+			          stats.getUpdatedAt());		
 		return stats;
 	}
 }

@@ -19,10 +19,10 @@ public class PowerStats {
 	
 	private Date updatedAt;
 
-	public PowerStats(UUID id, int strength, int agility, int dexterity, int intelligence) {
+	public PowerStats(int strength, int agility, int dexterity, int intelligence) {
 		super();
 				
-		this.id = id;
+		this.id = UUID.randomUUID();
 		this.strength = strength;
 		this.agility = agility;
 		this.dexterity = dexterity;
@@ -33,10 +33,6 @@ public class PowerStats {
 
 	public UUID getId() {
 		return id;
-	}
-	
-	public void setId(UUID id) {
-		this.id = id;
 	}
 
 	public int getStrength() {
