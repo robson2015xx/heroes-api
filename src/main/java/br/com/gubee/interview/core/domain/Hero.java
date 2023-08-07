@@ -21,7 +21,7 @@ public class Hero {
 	private Date createdAt;
 	
 	private Date updatedAt;
-
+	
 	public Hero(String name, String race, PowerStats stats) {
 		super();
 		this.id = UUID.randomUUID();
@@ -33,6 +33,18 @@ public class Hero {
 		this.updatedAt = new Date();
 	}
 	
+	public Hero(UUID id, String name, RaceEnum race, PowerStats stats, boolean enabled, Date createdAt,
+			Date updatedAt) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.race = race;
+		this.stats = stats;
+		this.enabled = enabled;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
 	private String setValidName(String name) {
 		if (name == null || name.trim().isEmpty()) {
 			throw new RuntimeException("Nome deve ser informado");

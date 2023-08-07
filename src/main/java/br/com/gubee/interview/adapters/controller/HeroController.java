@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import br.com.gubee.interview.adapters.repository.PowerStatsRepository;
 import br.com.gubee.interview.core.domain.Hero;
 import br.com.gubee.interview.core.service.CreateHeroService;
 import br.com.gubee.interview.core.service.DeleteHeroService;
+import br.com.gubee.interview.core.service.GetHeroByIdService;
 
 @Controller
 @RequestMapping(path = "/heroes")
@@ -39,5 +41,12 @@ public class HeroController {
 		DeleteHeroService deleteHeroService = new DeleteHeroService(heroRepository, powerStatsRepository);
 		deleteHeroService.execute(id);
 		return ResponseEntity.ok().body("OK");
+	}
+	
+	@GetMapping("/{id}")
+	@Transactional(rollbackFor = Exception.class)
+	public ResponseEntity<Hero> getHeroById(@PathVariable("id") UUID id) {
+		GetHeroByIdService getHeroByIdService = new GetHeroByIdService(heroRepository);
+		return ResponseEntity.ok().body(getHeroByIdService.execute(id));
 	}
 }

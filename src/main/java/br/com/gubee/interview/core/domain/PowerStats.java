@@ -18,7 +18,7 @@ public class PowerStats {
 	private Date createdAt;
 	
 	private Date updatedAt;
-
+	
 	public PowerStats(int strength, int agility, int dexterity, int intelligence) {
 		super();
 				
@@ -30,6 +30,20 @@ public class PowerStats {
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 	}
+
+	public PowerStats(UUID id, int strength, int agility, int dexterity, int intelligence, Date createdAt,
+			Date updatedAt) {
+		super();
+		this.id = id;
+		this.strength = strength;
+		this.agility = agility;
+		this.dexterity = dexterity;
+		this.intelligence = intelligence;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
+
 
 	public UUID getId() {
 		return id;
