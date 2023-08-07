@@ -1,5 +1,7 @@
 package br.com.gubee.interview.adapters.repository;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,12 +21,17 @@ public class HeroRepository implements HeroRepositoryPort{
 			          "VALUES (?, ?, ?, ?, ?, ?, ?)",
 			          hero.getId(),
 			          hero.getName(),
-			          hero.getRace(),
+			          hero.getRace().name(),
 			          hero.getStatsId(),
 			          hero.isEnabled(),
 			          hero.getCreatedAt(),
 			          hero.getUpdatedAt());
 			
 		return hero;
+	}
+
+	@Override
+	public void delete(UUID id) {
+		jdbcTemplate.update("delete from hero where id = ?", id);
 	}
 }

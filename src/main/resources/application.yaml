@@ -7,7 +7,6 @@ spring:
     mapper:
       propagate-transient-marker: true
     property-naming-strategy: SNAKE_CASE
-    default-property-inclusion: non-null
   flyway:
     enabled: true
     schemas:
@@ -23,6 +22,8 @@ server:
     - application/json
   http2:
     enabled: true
+  servlet:
+    context-path: /gubee_backend_test
 
 #JDBC
 jdbc:

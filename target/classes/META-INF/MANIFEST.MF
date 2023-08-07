@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 19
-Implementation-Title: teste-pleno-gubee-core
-Implementation-Version: 1.0.0-SNAPSHOT
-Implementation-Vendor: gubee
-Created-By: Maven Integration for Eclipse
-

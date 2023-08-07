@@ -1,7 +1,10 @@
 package br.com.gubee.interview.core.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Hero {
 
@@ -45,7 +48,11 @@ public class Hero {
 			throw new RuntimeException("Raça deve ser informada");
 		} 
 		
-		return RaceEnum.valueOf(race.trim().toUpperCase());
+		try {
+			return RaceEnum.valueOf(race.trim().toUpperCase());
+		} catch (Exception ex) {
+			throw new RuntimeException("Deve-se informar uma raça válida: " + Arrays.toString(RaceEnum.values()));
+		}
 	}
 
 	public UUID getId() {
@@ -64,6 +71,7 @@ public class Hero {
 		return stats;
 	}
 	
+	@JsonIgnore
 	public UUID getStatsId() {
 		return stats.getId();
 	}
