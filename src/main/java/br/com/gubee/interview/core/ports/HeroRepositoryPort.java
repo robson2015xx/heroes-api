@@ -15,4 +15,6 @@ public interface HeroRepositoryPort {
 	Optional<Hero> findById(UUID id);
 	
 	List<Hero> findByNameLike(String name);
+	
+	Hero update(Hero hero);
 }

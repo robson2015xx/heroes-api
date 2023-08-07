@@ -71,4 +71,18 @@ public class HeroRepository implements HeroRepositoryPort{
 				+ "where h.name like '%" + name + "%'", new HeroRowMapper());
 		return heroes;
 	}
+
+	@Override
+	public Hero update(Hero hero) {
+		jdbcTemplate.update("UPDATE hero set name = ?, race = ?, power_stats_id = ?, enabled = ?, "
+				+ "updated_at = ? where id = ?",
+		          hero.getName(),
+		          hero.getRace().name(),
+		          hero.getStatsId(),
+		          hero.isEnabled(),
+		          hero.getUpdatedAt(),
+				  hero.getId());
+		
+	return hero;
+	}
 }

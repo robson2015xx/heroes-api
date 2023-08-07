@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Hero {
@@ -19,6 +20,7 @@ public class Hero {
 	
 	private boolean enabled;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
 	private Date createdAt;
 	
 	private Date updatedAt;
@@ -60,6 +62,10 @@ public class Hero {
 	public UUID getId() {
 		return id;
 	}
+	
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -76,6 +82,10 @@ public class Hero {
 	@JsonIgnore
 	public UUID getStatsId() {
 		return stats.getId();
+	}
+	
+	public void setStatsId(UUID id) {
+		this.stats.setId(id);
 	}
 
 	public boolean isEnabled() {

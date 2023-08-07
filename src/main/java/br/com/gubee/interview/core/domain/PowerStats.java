@@ -35,6 +35,10 @@ public class PowerStats {
 	public UUID getId() {
 		return id;
 	}
+	
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	public int getStrength() {
 		return strength;

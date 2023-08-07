@@ -43,4 +43,17 @@ public class PowerStatsRepository implements PowerStatsRepositoryPort {
 				+ "	where "
 				+ "		id = ?)", id);
 	}
+
+	@Override
+	public PowerStats update(PowerStats stats) {
+		jdbcTemplate.update("UPDATE power_stats SET strength = ?, agility = ?, dexterity = ?, intelligence= ?, "
+				+ "updated_at = ? where id = ? ",
+		          stats.getStrength(),
+		          stats.getAgility(),
+		          stats.getDexterity(),
+		          stats.getIntelligence(),
+		          stats.getUpdatedAt(),	
+				  stats.getId());
+	return stats;
+	}
 }

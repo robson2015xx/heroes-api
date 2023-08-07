@@ -9,4 +9,6 @@ public interface PowerStatsRepositoryPort {
 	PowerStats save(PowerStats stats);
 	
 	void delete(UUID id);
+	
+	PowerStats update(PowerStats stats);
 }
