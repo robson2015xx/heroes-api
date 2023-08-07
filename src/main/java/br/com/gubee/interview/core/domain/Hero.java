@@ -2,6 +2,7 @@ package br.com.gubee.interview.core.domain;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,27 +23,16 @@ public class Hero {
 	
 	private Date updatedAt;
 	
-	public Hero(String name, String race, PowerStats stats) {
+	public Hero(UUID id, String name, String race, PowerStats stats, Boolean enabled, Date createdAt,
+			Date updatedAt) {
 		super();
-		this.id = UUID.randomUUID();
+		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
 		this.name = setValidName(name);
 		this.race = setValidRace(race);
 		this.stats = stats;
-		this.enabled = true;
-		this.createdAt = new Date();
-		this.updatedAt = new Date();
-	}
-	
-	public Hero(UUID id, String name, RaceEnum race, PowerStats stats, boolean enabled, Date createdAt,
-			Date updatedAt) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.race = race;
-		this.stats = stats;
-		this.enabled = enabled;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.enabled = Optional.ofNullable(enabled).orElse(true);
+		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
+		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
 	}
 
 	private String setValidName(String name) {

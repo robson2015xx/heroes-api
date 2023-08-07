@@ -1,6 +1,7 @@
 package br.com.gubee.interview.core.domain;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 public class PowerStats {
@@ -18,32 +19,18 @@ public class PowerStats {
 	private Date createdAt;
 	
 	private Date updatedAt;
-	
-	public PowerStats(int strength, int agility, int dexterity, int intelligence) {
-		super();
-				
-		this.id = UUID.randomUUID();
-		this.strength = strength;
-		this.agility = agility;
-		this.dexterity = dexterity;
-		this.intelligence = intelligence;
-		this.createdAt = new Date();
-		this.updatedAt = new Date();
-	}
 
 	public PowerStats(UUID id, int strength, int agility, int dexterity, int intelligence, Date createdAt,
 			Date updatedAt) {
 		super();
-		this.id = id;
+		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
 		this.strength = strength;
 		this.agility = agility;
 		this.dexterity = dexterity;
 		this.intelligence = intelligence;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
+		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
 	}
-
-
 
 	public UUID getId() {
 		return id;

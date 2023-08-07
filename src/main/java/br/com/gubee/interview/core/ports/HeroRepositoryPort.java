@@ -1,5 +1,6 @@
 package br.com.gubee.interview.core.ports;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,4 +13,6 @@ public interface HeroRepositoryPort {
 	void delete(UUID id);
 	
 	Optional<Hero> findById(UUID id);
+	
+	List<Hero> findByNameLike(String name);
 }

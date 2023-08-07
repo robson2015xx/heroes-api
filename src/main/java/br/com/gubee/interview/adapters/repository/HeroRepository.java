@@ -1,5 +1,6 @@
 package br.com.gubee.interview.adapters.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,5 +57,18 @@ public class HeroRepository implements HeroRepositoryPort{
 			log.debug("Problems in get hero by id: ", ex);
 		}
 		return Optional.ofNullable(hero);
+	}
+
+	@Override
+	public List<Hero> findByNameLike(String name) {
+		List<Hero> heroes = jdbcTemplate.query("select "
+				+ "	* "
+				+ "from "
+				+ "	hero h "
+				+ "join  "
+				+ "	power_stats ps "
+				+ "on h.power_stats_id = ps.id "
+				+ "where h.name like '%" + name + "%'", new HeroRowMapper());
+		return heroes;
 	}
 }
