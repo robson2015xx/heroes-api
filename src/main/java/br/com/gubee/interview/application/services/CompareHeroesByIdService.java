@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import br.com.gubee.interview.application.domain.ErrorMessagesConstants;
 import br.com.gubee.interview.application.domain.Hero;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import br.com.gubee.interview.application.ports.HeroRepositoryPort;
@@ -17,10 +18,14 @@ public class CompareHeroesByIdService {
 	}
 	
 	private Map<String, Object> compareHeroesById(UUID heroOneId, UUID heroTwoId) {
-		Hero heroOne = heroRepository.findById(heroOneId).orElseThrow(() -> new BusinessValidationException("Invalid Hero"));
-		Hero heroTwo = heroRepository.findById(heroTwoId).orElseThrow(() -> new BusinessValidationException("Invalid Hero"));
+		Hero heroOne = heroRepository.findById(heroOneId).orElseThrow(() 
+				-> new BusinessValidationException(ErrorMessagesConstants.INVALID_HERO_ID, heroOneId.toString()));
+		Hero heroTwo = heroRepository.findById(heroTwoId).orElseThrow(() 
+				-> new BusinessValidationException(ErrorMessagesConstants.INVALID_HERO_ID, heroTwoId.toString()));
+		
 		int heroOneTotalPower = heroOne.getTotalPower();
 		int heroTwoTotalPower = heroTwo.getTotalPower();
+		
 		Map<String, Object> response = new HashMap<>();
 		response.put("1- " + heroOne.getName() + "(" + heroOne.getId().toString() + ")", heroOne.getStats());
 		response.put("2- " + heroTwo.getName() + "(" + heroTwo.getId().toString() + ")", heroTwo.getStats());

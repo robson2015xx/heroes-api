@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.fasterxml.jackson.core.JsonParseException;
 
+import br.com.gubee.interview.application.domain.ErrorMessagesConstants;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +46,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		String traceld = Optional.of(request.getHeader("X-traceId")).orElse(UUID.randomUUID().toString());
 		headers.add("X-traceld", traceld);
 		List<ErrorDTO> errors = new ArrayList<>();
-		errors.add(new ErrorDTO("01", ex.getParameter().getParameterName(), ex.getMessage()));
+		errors.add(new ErrorDTO(ex.getObjectName(), ex.getMessage()));
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), message, request.getDescription(false),
 				status.toString(), traceld, errors);
 		log.error(message, ex);
@@ -59,7 +60,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		String traceId = Optional.ofNullable(request.getHeader("X-traceId")).orElse(UUID.randomUUID().toString());
 		headers.add("X-traceld", traceId);
 		List<ErrorDTO> errors = new ArrayList<>();
-		errors.add(new ErrorDTO("01", ex.getParameterName(), ex.getMessage()));
+		errors.add(new ErrorDTO(ex.getParameterName() + "is missing", ex.getMessage()));
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), message, request.getDescription(false),
 				status.toString(), traceId, errors);
 		log.error(message, ex);
@@ -89,8 +90,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpStatus status = HttpStatus.REQUEST_TIMEOUT;
 		String traceld = Optional.ofNullable(request.getHeader("X-traceId")).orElse(UUID.randomUUID().toString());
 		List<ErrorDTO> errors = new ArrayList<>();
-		errors.add(new ErrorDTO("01", "", ex.getMessage()));
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessages.TIMEOUT_EXCEPTION_MESSAGE,
+		errors.add(new ErrorDTO(ex.getStackTrace()[0].toString(), ex.getMessage()));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessagesConstants.TIMEOUT_EXCEPTION_MESSAGE,
 				request.getDescription(false), status.toString(), traceld, errors);
 		log.error("Timeout application: ", ex);
 		return ResponseEntity.status(status).header("X-traceId", traceld).body(exceptionResponse);
@@ -133,8 +134,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 		String traceId = Optional.ofNullable(request.getHeader("X-traceId")).orElse(UUID.randomUUID().toString());
 		List<ErrorDTO> errors = new ArrayList<>();
-		errors.add(new ErrorDTO("01", "", ex.getMessage()));
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessages.GENERIC_EXCEPTION_MESSAGE,
+		errors.add(new ErrorDTO(ex.getStackTrace()[0].toString(), ex.getMessage()));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessagesConstants.GENERIC_EXCEPTION_MESSAGE,
 				request.getDescription(false), status.toString(), traceId, errors);
 		log.error("Error not mapped: ", ex);
 		return ResponseEntity.status(status).header("X-traceId", traceId).body(exceptionResponse);
@@ -144,8 +145,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		String traceld = Optional.ofNullable(request.getHeader("X-traceld")).orElse(UUID.randomUUID().toString());
 		List<ErrorDTO> errors = new ArrayList<>();
-		errors.add(new ErrorDTO("01", "", ex.getMessage()));
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessages.NOT_FOUND_MESSAGE,
+		errors.add(new ErrorDTO(ex.getStackTrace()[0].toString(), ex.getMessage()));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessagesConstants.NOT_FOUND_MESSAGE,
 				request.getDescription(false), status.toString(), traceld, errors);
 		log.error("Invalid payload, unprocessable: ", ex);
 		return ResponseEntity.status(status).header("X-traceld", traceld).body(exceptionResponse);
@@ -155,8 +156,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		String traceld = Optional.ofNullable(request.getHeader("X-traceId")).orElse(UUID.randomUUID().toString());
 		List<ErrorDTO> errors = new ArrayList<>();
-		errors.add(new ErrorDTO("01", "", ex.getMessage()));
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessages.INVALID_DATA_MESSAGE,
+		errors.add(new ErrorDTO(ex.getStackTrace()[0].toString(), ex.getMessage()));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessagesConstants.INVALID_DATA_MESSAGE,
 				request.getDescription(false), status.toString(), traceld, errors);
 		log.error("Invalid payload, unprocessable: ", ex);
 		return ResponseEntity.status(status).header("X-traceId", traceld).body(exceptionResponse);

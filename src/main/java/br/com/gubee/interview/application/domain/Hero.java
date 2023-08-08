@@ -50,6 +50,11 @@ public class Hero implements Serializable{
 		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
 		this.name = setValidName(name);
 		this.race = setValidRace(race);
+		
+		if (stats == null) {
+			throw new BusinessValidationException(ErrorMessagesConstants.POWER_STATS_IS_MANDATORY, "field [stats]");
+		}
+		
 		this.stats = stats;
 		this.enabled = Optional.ofNullable(enabled).orElse(true);
 		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
@@ -58,9 +63,9 @@ public class Hero implements Serializable{
 
 	private String setValidName(String name) {
 		if (name == null || name.trim().isEmpty()) {
-			throw new BusinessValidationException("Nome deve ser informado");
+			throw new BusinessValidationException(ErrorMessagesConstants.NAME_IS_MANDATORY, "field [name]");
 		} else if (name.trim().length() > 255) {
-			throw new BusinessValidationException("Nome muito grande");
+			throw new BusinessValidationException(ErrorMessagesConstants.NAME_IS_TOO_LONG, "field [name]");
 		} else {
 			return name.trim();
 		}
@@ -68,13 +73,13 @@ public class Hero implements Serializable{
 	
 	private RaceEnum setValidRace(String race) {
 		if (race == null || race.trim().isEmpty()) {
-			throw new BusinessValidationException("Raça deve ser informada");
+			throw new BusinessValidationException(ErrorMessagesConstants.RACE_IS_MANDATORY, "field [race]");
 		} 
 		
 		try {
 			return RaceEnum.valueOf(race.trim().toUpperCase());
 		} catch (Exception ex) {
-			throw new BusinessValidationException("Deve-se informar uma raça válida: " + Arrays.toString(RaceEnum.values()));
+			throw new BusinessValidationException(ErrorMessagesConstants.RACE_IS_INVALID, Arrays.toString(RaceEnum.values()));
 		}
 	}
 

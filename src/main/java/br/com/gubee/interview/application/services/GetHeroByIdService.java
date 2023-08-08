@@ -2,6 +2,7 @@ package br.com.gubee.interview.application.services;
 
 import java.util.UUID;
 
+import br.com.gubee.interview.application.domain.ErrorMessagesConstants;
 import br.com.gubee.interview.application.domain.Hero;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import br.com.gubee.interview.application.ports.HeroRepositoryPort;
@@ -16,9 +17,8 @@ public class GetHeroByIdService  {
 
 	private Hero getHeroById(UUID id) {
 
-		System.out.println(id.toString());
 		return heroRepository.findById(id).orElseThrow(() 
-				-> new BusinessValidationException("Heroi nao encontrado"));
+				-> new BusinessValidationException(ErrorMessagesConstants.INVALID_HERO_ID, id.toString()));
 	}
 
 	public Hero execute(UUID id) {

@@ -5,24 +5,19 @@ import java.io.Serializable;
 public class ErrorDTO implements Serializable{
 
 	private static final long serialVersionUID = 4947514610991195682L;
-	private String code;
-	private String field;
+	private String details;
 	private String message;
 	
 	public ErrorDTO() {}
 
-	public ErrorDTO(String code, String field, String message) {
+	public ErrorDTO(String details, String message) {
 		super();
-		this.code = code;
-		this.field = field;
+		this.details = details;
 		this.message = message;
 	}
 	
-	public String getCode() {
-		return code;
-	}
-	public String getField() {
-		return field;
+	public String getDetails() {
+		return details;
 	}
 	public String getMessage() {
 		return message;

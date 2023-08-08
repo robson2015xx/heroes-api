@@ -68,7 +68,6 @@ public class HeroRepository implements HeroRepositoryPort{
 	@Override
 	@Cacheable(value = "hero", key = "#name")
 	public List<Hero> findByNameLike(String name) {
-		System.out.println("test");
 		List<Hero> heroes = jdbcTemplate.query("select "
 				+ "	* "
 				+ "from "
