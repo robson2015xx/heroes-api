@@ -1,5 +1,6 @@
 package br.com.gubee.interview.application.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -7,7 +8,9 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class PowerStats {
+public class PowerStats implements Serializable {
+
+	private static final long serialVersionUID = 5677576154366798405L;
 
 	private UUID id;
 	
@@ -24,6 +27,8 @@ public class PowerStats {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date updatedAt;
+	
+	public PowerStats() {}
 
 	public PowerStats(UUID id, int strength, int agility, int dexterity, int intelligence, Date createdAt,
 			Date updatedAt) {

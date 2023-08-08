@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +22,7 @@ public class HeroRepository implements HeroRepositoryPort{
 	@Autowired private JdbcTemplate jdbcTemplate;
 		
 	@Override
+	@CacheEvict(value = "hero", allEntries = true)
 	public Hero save(Hero hero) {
 				
 			jdbcTemplate.update("INSERT INTO hero (id, name, race, power_stats_id, enabled, created_at, updated_at) " +
@@ -36,11 +39,13 @@ public class HeroRepository implements HeroRepositoryPort{
 	}
 
 	@Override
+	@CacheEvict(value = "hero", allEntries = true)
 	public void delete(UUID id) {
 		jdbcTemplate.update("delete from hero where id = ?", id);
 	}
 
 	@Override
+	@Cacheable(value = "hero", key = "#id")
 	public Optional<Hero> findById(UUID id) {
 		
 		Hero hero = null; 
@@ -61,7 +66,9 @@ public class HeroRepository implements HeroRepositoryPort{
 	}
 
 	@Override
+	@Cacheable(value = "hero", key = "#name")
 	public List<Hero> findByNameLike(String name) {
+		System.out.println("test");
 		List<Hero> heroes = jdbcTemplate.query("select "
 				+ "	* "
 				+ "from "
@@ -74,6 +81,7 @@ public class HeroRepository implements HeroRepositoryPort{
 	}
 
 	@Override
+	@CacheEvict(value = "hero", allEntries = true)
 	public Hero update(Hero hero) {
 		jdbcTemplate.update("UPDATE hero set name = ?, race = ?, power_stats_id = ?, enabled = ?, "
 				+ "updated_at = ? where id = ?",

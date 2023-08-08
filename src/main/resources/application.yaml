@@ -16,6 +16,12 @@ spring:
     - interview_service
     locations:
     - classpath:db/schema/migration
+  cache:
+    type: redis
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: 6379
 
 ## Server properties
 server: 

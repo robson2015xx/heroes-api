@@ -1,20 +1,7 @@
-version: '2'
+version: '3.9'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: app
-    ports:
-      - 8080:8080 
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=gubee
-      - SPRING_DATASOURCE_PASSWORD=gubee
-          
+  
   db:
     container_name: db
     build:
@@ -22,10 +9,63 @@ services:
       dockerfile: db.Dockerfile
     ports:
       - 5432:5432 
+    networks:
+      - backend
     volumes:
       - 'pgdata:/var/lib/postgresql/data'
     environment:
       - POSTGRES_PASSWORD=gubee
     restart: always
+  
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+    - 6379:6379
+    networks:
+      - backend
+    volumes:
+    - redisdata:/data 
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    networks:
+      - backend
+    ports:
+      - 8080
+    restart: always
+    depends_on:
+      - db
+      - redis
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=gubee
+      - SPRING_DATASOURCE_PASSWORD=gubee
+      - REDIS_HOST=redis
+          
+  nginx:
+    image: nginx:latest
+    networks:
+      - backend
+    volumes:
+      - ./Docker/proxy:/etc/nginx/conf.d
+    depends_on:
+      - app
+    ports:
+    - 8080:3000
+    
 volumes:
   pgdata:
+  redisdata:
+  
+networks:
+  backend: 

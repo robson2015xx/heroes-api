@@ -1,5 +1,6 @@
 package br.com.gubee.interview.application.domain;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
@@ -8,7 +9,9 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Hero {
+public class Hero implements Serializable{
+
+	private static final long serialVersionUID = 5013284719485248083L;
 
 	private UUID id;
 	
@@ -26,8 +29,21 @@ public class Hero {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date updatedAt;
 	
+	public Hero() {}
+	
 	public Hero(UUID id, String name, String race, PowerStats stats, Boolean enabled, Date createdAt,
 			Date updatedAt) {
+		super();
+		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
+		this.name = setValidName(name);
+		this.race = setValidRace(race);
+		this.stats = stats;
+		this.enabled = Optional.ofNullable(enabled).orElse(true);
+		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
+		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
+	}
+	
+	public Hero(String name, String race, PowerStats stats, Boolean enabled) {
 		super();
 		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
 		this.name = setValidName(name);
