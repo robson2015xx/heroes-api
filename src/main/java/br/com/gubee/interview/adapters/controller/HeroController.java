@@ -74,10 +74,10 @@ public class HeroController {
 		return ResponseEntity.ok().body(getHeroByIdService.execute(id));
 	}
 	
-	@GetMapping("/{heroOneId}/compare/{heroTwoId}")
+	@GetMapping("/{heroId}/compare")
 	@Transactional(rollbackFor = Exception.class)
-	public ResponseEntity<Map<String, Object>> compareHeroesById(@PathVariable("heroOneId") UUID heroOneId, @PathVariable("heroTwoId") UUID heroTwoId) {
+	public ResponseEntity<Map<String, Object>> compareHeroesById(@PathVariable UUID heroId, @RequestParam UUID heroIdToCompare) {
 		CompareHeroesByIdService compareHeroesByIdService = new CompareHeroesByIdService(heroRepository);
-		return ResponseEntity.ok().body(compareHeroesByIdService.execute(heroOneId, heroTwoId));
+		return ResponseEntity.ok().body(compareHeroesByIdService.execute(heroId, heroIdToCompare));
 	}
 }
