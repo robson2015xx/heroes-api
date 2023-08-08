@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import br.com.gubee.interview.application.ports.HeroRepositoryPort;
 
 public class CompareHeroesByIdService {
@@ -16,8 +17,8 @@ public class CompareHeroesByIdService {
 	}
 	
 	private Map<String, Object> compareHeroesById(UUID heroOneId, UUID heroTwoId) {
-		Hero heroOne = heroRepository.findById(heroOneId).orElseThrow(() -> new RuntimeException("Invalid Hero"));
-		Hero heroTwo = heroRepository.findById(heroTwoId).orElseThrow(() -> new RuntimeException("Invalid Hero"));
+		Hero heroOne = heroRepository.findById(heroOneId).orElseThrow(() -> new BusinessValidationException("Invalid Hero"));
+		Hero heroTwo = heroRepository.findById(heroTwoId).orElseThrow(() -> new BusinessValidationException("Invalid Hero"));
 		int heroOneTotalPower = heroOne.getTotalPower();
 		int heroTwoTotalPower = heroTwo.getTotalPower();
 		Map<String, Object> response = new HashMap<>();

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.gubee.interview.adapters.repository.HeroRepository;
 import br.com.gubee.interview.adapters.repository.PowerStatsRepository;
 import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.dto.HeroDTO;
 import br.com.gubee.interview.application.services.CompareHeroesByIdService;
 import br.com.gubee.interview.application.services.CreateHeroService;
 import br.com.gubee.interview.application.services.DeleteHeroService;
@@ -39,9 +40,9 @@ public class HeroController {
 
 	@PostMapping("/")
 	@Transactional(rollbackFor = Exception.class)
-	public ResponseEntity<Hero> createHero(@RequestBody Hero hero) {
+	public ResponseEntity<Hero> createHero(@RequestBody HeroDTO heroDTO) {
 		CreateHeroService createHeroService = new CreateHeroService(heroRepository, powerStatsRepository);
-		return ResponseEntity.ok().body(createHeroService.execute(hero));
+		return ResponseEntity.ok().body(createHeroService.execute(heroDTO.toHero()));
 	}
 
 	@GetMapping
@@ -62,9 +63,9 @@ public class HeroController {
 	
 	@PutMapping("/{id}")
 	@Transactional(rollbackFor = Exception.class)
-	public ResponseEntity<Hero> updateHero(@PathVariable("id") UUID id, @RequestBody Hero hero) {
+	public ResponseEntity<Hero> updateHero(@PathVariable("id") UUID id, @RequestBody HeroDTO heroDTO) {
 		UpdateHeroService updateHeroService = new UpdateHeroService(heroRepository, powerStatsRepository);
-		return ResponseEntity.ok().body(updateHeroService.execute(id, hero));
+		return ResponseEntity.ok().body(updateHeroService.execute(id, heroDTO.toHero()));
 	}
 
 	@GetMapping("/{id}")

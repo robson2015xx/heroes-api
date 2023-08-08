@@ -3,6 +3,7 @@ package br.com.gubee.interview.application.services;
 import java.util.UUID;
 
 import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import br.com.gubee.interview.application.ports.HeroRepositoryPort;
 
 public class GetHeroByIdService  {
@@ -17,7 +18,7 @@ public class GetHeroByIdService  {
 
 		System.out.println(id.toString());
 		return heroRepository.findById(id).orElseThrow(() 
-				-> new RuntimeException("Heroi nao encontrado"));
+				-> new BusinessValidationException("Heroi nao encontrado"));
 	}
 
 	public Hero execute(UUID id) {

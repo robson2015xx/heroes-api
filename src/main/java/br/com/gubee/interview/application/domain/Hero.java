@@ -9,6 +9,8 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.gubee.interview.application.exceptions.BusinessValidationException;
+
 public class Hero implements Serializable{
 
 	private static final long serialVersionUID = 5013284719485248083L;
@@ -56,9 +58,9 @@ public class Hero implements Serializable{
 
 	private String setValidName(String name) {
 		if (name == null || name.trim().isEmpty()) {
-			throw new RuntimeException("Nome deve ser informado");
+			throw new BusinessValidationException("Nome deve ser informado");
 		} else if (name.trim().length() > 255) {
-			throw new RuntimeException("Nome muito grande");
+			throw new BusinessValidationException("Nome muito grande");
 		} else {
 			return name.trim();
 		}
@@ -66,13 +68,13 @@ public class Hero implements Serializable{
 	
 	private RaceEnum setValidRace(String race) {
 		if (race == null || race.trim().isEmpty()) {
-			throw new RuntimeException("Raça deve ser informada");
+			throw new BusinessValidationException("Raça deve ser informada");
 		} 
 		
 		try {
 			return RaceEnum.valueOf(race.trim().toUpperCase());
 		} catch (Exception ex) {
-			throw new RuntimeException("Deve-se informar uma raça válida: " + Arrays.toString(RaceEnum.values()));
+			throw new BusinessValidationException("Deve-se informar uma raça válida: " + Arrays.toString(RaceEnum.values()));
 		}
 	}
 

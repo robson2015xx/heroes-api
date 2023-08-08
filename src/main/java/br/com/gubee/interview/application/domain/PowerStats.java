@@ -30,6 +30,17 @@ public class PowerStats implements Serializable {
 	
 	public PowerStats() {}
 
+	public PowerStats(int strength, int agility, int dexterity, int intelligence) {
+		super();
+		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
+		this.strength = strength;
+		this.agility = agility;
+		this.dexterity = dexterity;
+		this.intelligence = intelligence;
+		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
+		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
+	}
+	
 	public PowerStats(UUID id, int strength, int agility, int dexterity, int intelligence, Date createdAt,
 			Date updatedAt) {
 		super();
