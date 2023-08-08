@@ -5,7 +5,7 @@ services:
   db:
     container_name: db
     build:
-      context: ./Docker
+      context: ./src/main/docker
       dockerfile: db.Dockerfile
     ports:
       - 5432:5432 
@@ -29,8 +29,8 @@ services:
   
   app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./src/main/docker
+      dockerfile: app.Dockerfile
     deploy:
       replicas: 2
       update_config:
@@ -57,7 +57,7 @@ services:
     networks:
       - backend
     volumes:
-      - ./Docker/proxy:/etc/nginx/conf.d
+      - ./src/main/docker/proxy:/etc/nginx/conf.d
     depends_on:
       - app
     ports:
