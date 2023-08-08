@@ -1,6 +1,7 @@
 package br.com.gubee.interview.adapters.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gubee.interview.adapters.repository.HeroRepository;
 import br.com.gubee.interview.adapters.repository.PowerStatsRepository;
-import br.com.gubee.interview.core.domain.Hero;
-import br.com.gubee.interview.core.service.CreateHeroService;
-import br.com.gubee.interview.core.service.DeleteHeroService;
-import br.com.gubee.interview.core.service.GetHeroByIdService;
-import br.com.gubee.interview.core.service.GetHeroByNameService;
-import br.com.gubee.interview.core.service.UpdateHeroService;
+import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.services.CompareHeroesByIdService;
+import br.com.gubee.interview.application.services.CreateHeroService;
+import br.com.gubee.interview.application.services.DeleteHeroService;
+import br.com.gubee.interview.application.services.GetHeroByIdService;
+import br.com.gubee.interview.application.services.GetHeroByNameService;
+import br.com.gubee.interview.application.services.UpdateHeroService;
 
 @Controller
 @RequestMapping(path = "/heroes")
@@ -70,5 +72,12 @@ public class HeroController {
 	public ResponseEntity<Hero> getHeroById(@PathVariable("id") UUID id) {
 		GetHeroByIdService getHeroByIdService = new GetHeroByIdService(heroRepository);
 		return ResponseEntity.ok().body(getHeroByIdService.execute(id));
+	}
+	
+	@GetMapping("/{heroOneId}/compare/{heroTwoId}")
+	@Transactional(rollbackFor = Exception.class)
+	public ResponseEntity<Map<String, Object>> compareHeroesById(@PathVariable("heroOneId") UUID heroOneId, @PathVariable("heroTwoId") UUID heroTwoId) {
+		CompareHeroesByIdService compareHeroesByIdService = new CompareHeroesByIdService(heroRepository);
+		return ResponseEntity.ok().body(compareHeroesByIdService.execute(heroOneId, heroTwoId));
 	}
 }

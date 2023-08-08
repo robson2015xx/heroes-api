@@ -1,4 +1,4 @@
-package br.com.gubee.interview.core.domain;
+package br.com.gubee.interview.application.domain;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -20,9 +20,10 @@ public class Hero {
 	
 	private boolean enabled;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date createdAt;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date updatedAt;
 	
 	public Hero(UUID id, String name, String race, PowerStats stats, Boolean enabled, Date createdAt,
@@ -82,6 +83,11 @@ public class Hero {
 	@JsonIgnore
 	public UUID getStatsId() {
 		return stats.getId();
+	}
+	
+	@JsonIgnore
+	public int getTotalPower() {
+		return stats.weightedSumPowerStats();
 	}
 	
 	public void setStatsId(UUID id) {

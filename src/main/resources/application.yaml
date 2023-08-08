@@ -2,8 +2,11 @@ spring:
   application:
     name: Gubee backend test
   jackson:
+    deserialization:
+      accept-single-value-as-array: true
+      fail-on-unknown-properties: false
     serialization:
-      write-dates-as-timestamps: true
+      write-dates-as-timestamps: false
     mapper:
       propagate-transient-marker: true
     property-naming-strategy: SNAKE_CASE

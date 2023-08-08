@@ -1,8 +1,8 @@
-package br.com.gubee.interview.core.ports;
+package br.com.gubee.interview.application.ports;
 
 import java.util.UUID;
 
-import br.com.gubee.interview.core.domain.PowerStats;
+import br.com.gubee.interview.application.domain.PowerStats;
 
 public interface PowerStatsRepositoryPort {
 

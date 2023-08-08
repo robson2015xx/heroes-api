@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import br.com.gubee.interview.adapters.rowmapper.HeroRowMapper;
-import br.com.gubee.interview.core.domain.Hero;
-import br.com.gubee.interview.core.ports.HeroRepositoryPort;
+import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.ports.HeroRepositoryPort;
 import lombok.extern.slf4j.Slf4j;
 
 @Repository
@@ -52,7 +52,8 @@ public class HeroRepository implements HeroRepositoryPort{
 					+ "	hero h "
 					+ "join  "
 					+ "	power_stats ps "
-					+ "on h.power_stats_id = ps.id", new HeroRowMapper());
+					+ "on h.power_stats_id = ps.id "
+					+ "where h.id = ?", new HeroRowMapper(), id);
 		} catch (Exception ex) {
 			log.debug("Problems in get hero by id: ", ex);
 		}

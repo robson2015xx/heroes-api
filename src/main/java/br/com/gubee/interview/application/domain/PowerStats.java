@@ -1,8 +1,11 @@
-package br.com.gubee.interview.core.domain;
+package br.com.gubee.interview.application.domain;
 
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class PowerStats {
 
@@ -16,8 +19,10 @@ public class PowerStats {
 	
 	private int intelligence;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date createdAt;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date updatedAt;
 
 	public PowerStats(UUID id, int strength, int agility, int dexterity, int intelligence, Date createdAt,
@@ -30,6 +35,11 @@ public class PowerStats {
 		this.intelligence = intelligence;
 		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
 		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
+	}
+	
+	@JsonIgnore
+	public int weightedSumPowerStats() {
+		return strength + agility + dexterity + intelligence;
 	}
 
 	public UUID getId() {

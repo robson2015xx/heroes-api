@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import br.com.gubee.interview.core.domain.PowerStats;
-import br.com.gubee.interview.core.ports.PowerStatsRepositoryPort;
+import br.com.gubee.interview.application.domain.PowerStats;
+import br.com.gubee.interview.application.ports.PowerStatsRepositoryPort;
 
 @Repository
 public class PowerStatsRepository implements PowerStatsRepositoryPort {

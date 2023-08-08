@@ -1,12 +1,11 @@
-package br.com.gubee.interview.core.service;
+package br.com.gubee.interview.application.services;
 
 import java.util.UUID;
 
-import br.com.gubee.interview.core.ports.DeleteHeroServicePort;
-import br.com.gubee.interview.core.ports.HeroRepositoryPort;
-import br.com.gubee.interview.core.ports.PowerStatsRepositoryPort;
+import br.com.gubee.interview.application.ports.HeroRepositoryPort;
+import br.com.gubee.interview.application.ports.PowerStatsRepositoryPort;
 
-public class DeleteHeroService implements DeleteHeroServicePort {
+public class DeleteHeroService  {
 
 	private HeroRepositoryPort heroRepository;
 	
@@ -17,8 +16,7 @@ public class DeleteHeroService implements DeleteHeroServicePort {
 		this.powerStatsRepository = powerStatsRepository;
 	}
 
-	@Override
-	public void deleteHero(UUID id) {
+	private void deleteHero(UUID id) {
 		heroRepository.delete(id);
 		powerStatsRepository.delete(id);
 	}

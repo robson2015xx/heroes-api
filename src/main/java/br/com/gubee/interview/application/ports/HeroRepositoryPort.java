@@ -1,10 +1,10 @@
-package br.com.gubee.interview.core.ports;
+package br.com.gubee.interview.application.ports;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import br.com.gubee.interview.core.domain.Hero;
+import br.com.gubee.interview.application.domain.Hero;
 
 public interface HeroRepositoryPort {
 

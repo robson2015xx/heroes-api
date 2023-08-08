@@ -1,13 +1,12 @@
-package br.com.gubee.interview.core.service;
+package br.com.gubee.interview.application.services;
 
 import java.util.UUID;
 
-import br.com.gubee.interview.core.domain.Hero;
-import br.com.gubee.interview.core.ports.HeroRepositoryPort;
-import br.com.gubee.interview.core.ports.PowerStatsRepositoryPort;
-import br.com.gubee.interview.core.ports.UpdateHeroServicePort;
+import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.ports.HeroRepositoryPort;
+import br.com.gubee.interview.application.ports.PowerStatsRepositoryPort;
 
-public class UpdateHeroService implements UpdateHeroServicePort {
+public class UpdateHeroService  {
 
 	private HeroRepositoryPort heroRepository;
 	
@@ -22,8 +21,7 @@ public class UpdateHeroService implements UpdateHeroServicePort {
 		return updateHero(id, hero);
 	}
 
-	@Override
-	public Hero updateHero(UUID id, Hero hero) {
+	private Hero updateHero(UUID id, Hero hero) {
 		Hero actualHero = heroRepository.findById(id).orElseThrow(() -> new RuntimeException("Heroi não encontrado"));
 		hero.setId(id);
 		hero.setStatsId(actualHero.getStatsId());

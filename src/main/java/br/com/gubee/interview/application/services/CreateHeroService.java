@@ -1,11 +1,10 @@
-package br.com.gubee.interview.core.service;
+package br.com.gubee.interview.application.services;
 
-import br.com.gubee.interview.core.domain.Hero;
-import br.com.gubee.interview.core.ports.HeroRepositoryPort;
-import br.com.gubee.interview.core.ports.CreateHeroServicePort;
-import br.com.gubee.interview.core.ports.PowerStatsRepositoryPort;
+import br.com.gubee.interview.application.domain.Hero;
+import br.com.gubee.interview.application.ports.HeroRepositoryPort;
+import br.com.gubee.interview.application.ports.PowerStatsRepositoryPort;
 
-public class CreateHeroService implements CreateHeroServicePort {
+public class CreateHeroService  {
 
 	private HeroRepositoryPort heroRepository;
 	
@@ -16,8 +15,7 @@ public class CreateHeroService implements CreateHeroServicePort {
 		this.powerStatsRepository = powerStatsRepository;
 	}
 
-	@Override
-	public Hero createHero(Hero hero) {
+	private Hero createHero(Hero hero) {
 		powerStatsRepository.save(hero.getStats());
 		return heroRepository.save(hero);
 	}
