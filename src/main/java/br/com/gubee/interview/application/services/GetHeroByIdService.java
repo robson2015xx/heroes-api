@@ -2,7 +2,7 @@ package br.com.gubee.interview.application.services;
 
 import java.util.UUID;
 
-import br.com.gubee.interview.application.domain.ErrorMessagesConstants;
+import br.com.gubee.interview.application.business.ErrorMessagesConstants;
 import br.com.gubee.interview.application.domain.Hero;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import br.com.gubee.interview.application.ports.HeroRepositoryPort;

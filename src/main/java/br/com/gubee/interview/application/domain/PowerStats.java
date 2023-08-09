@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class PowerStats implements Serializable {
 
@@ -53,17 +52,23 @@ public class PowerStats implements Serializable {
 		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
 	}
 	
-	@JsonIgnore
 	public int weightedSumPowerStats() {
 		return strength + agility + dexterity + intelligence;
 	}
 
-	public UUID getId() {
-		return id;
+	public PowerStats updateOnlyMappedFields(PowerStats statsUpdated) {
+		
+		strength = statsUpdated.getStrength();
+		agility = statsUpdated.getAgility();
+		dexterity = statsUpdated.getDexterity();
+		intelligence = statsUpdated.getIntelligence();
+		updatedAt = statsUpdated.getUpdatedAt();
+		
+		return this;
 	}
 	
-	public void setId(UUID id) {
-		this.id = id;
+	public UUID getId() {
+		return id;
 	}
 
 	public int getStrength() {

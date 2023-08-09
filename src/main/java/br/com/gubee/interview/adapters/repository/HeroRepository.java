@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import br.com.gubee.interview.adapters.rowmapper.HeroRowMapper;
+import br.com.gubee.interview.adapters.utils.QueryUtils;
 import br.com.gubee.interview.application.domain.Hero;
 import br.com.gubee.interview.application.ports.HeroRepositoryPort;
 import lombok.extern.slf4j.Slf4j;
@@ -51,14 +52,7 @@ public class HeroRepository implements HeroRepositoryPort{
 		Hero hero = null; 
 		
 		try { 
-			hero = jdbcTemplate.queryForObject("select "
-					+ "	* "
-					+ "from "
-					+ "	hero h "
-					+ "join  "
-					+ "	power_stats ps "
-					+ "on h.power_stats_id = ps.id "
-					+ "where h.id = ?", new HeroRowMapper(), id);
+			hero = jdbcTemplate.queryForObject(QueryUtils.FIND_HERO_BY_ID_WITH_COUNT_WINS, new HeroRowMapper(), id.toString());
 		} catch (Exception ex) {
 			log.debug("Problems in get hero by id: ", ex);
 		}
@@ -69,12 +63,15 @@ public class HeroRepository implements HeroRepositoryPort{
 	@Cacheable(value = "hero", key = "#name")
 	public List<Hero> findByNameLike(String name) {
 		List<Hero> heroes = jdbcTemplate.query("select "
-				+ "	* "
+				+ "	ps.*, h.*, count(bh.id) "
 				+ "from "
 				+ "	hero h "
 				+ "join  "
 				+ "	power_stats ps "
 				+ "on h.power_stats_id = ps.id "
+				+ "left join "
+				+ " battle_history bh "
+				+ "on bh.hero_win_id = h.id"
 				+ "where h.name like '%" + name + "%'", new HeroRowMapper());
 		return heroes;
 	}

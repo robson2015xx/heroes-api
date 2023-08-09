@@ -1,4 +1,4 @@
-package br.com.gubee.interview.application.domain;
+package br.com.gubee.interview.application.business;
 
 public class ErrorMessagesConstants {
 		public static final String GENERIC_EXCEPTION_MESSAGE = "Erro inesperado, favor contatar suporte.";

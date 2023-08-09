@@ -1,4 +1,4 @@
-package br.com.gubee.interview.application.dto;
+package br.com.gubee.interview.application.business.inbound;
 
 import br.com.gubee.interview.application.domain.PowerStats;
 

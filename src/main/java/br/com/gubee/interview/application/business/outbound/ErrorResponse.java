@@ -1,4 +1,4 @@
-package br.com.gubee.interview.application.domain;
+package br.com.gubee.interview.application.business.outbound;
 
 import java.util.Date;
 import java.util.List;

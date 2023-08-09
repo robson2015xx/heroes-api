@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.fasterxml.jackson.core.JsonParseException;
 
-import br.com.gubee.interview.application.domain.ErrorMessagesConstants;
+import br.com.gubee.interview.application.business.ErrorMessagesConstants;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import lombok.extern.slf4j.Slf4j;
 

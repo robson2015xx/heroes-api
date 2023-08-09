@@ -9,6 +9,8 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.gubee.interview.application.business.ErrorMessagesConstants;
+import br.com.gubee.interview.application.business.RaceEnum;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 
 public class Hero implements Serializable{
@@ -23,6 +25,8 @@ public class Hero implements Serializable{
 	
 	private PowerStats stats;
 	
+	private int totalWins;
+	
 	private boolean enabled;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -34,7 +38,7 @@ public class Hero implements Serializable{
 	public Hero() {}
 	
 	public Hero(UUID id, String name, String race, PowerStats stats, Boolean enabled, Date createdAt,
-			Date updatedAt) {
+			Date updatedAt, int totalWins) {
 		super();
 		this.id = Optional.ofNullable(id).orElse(UUID.randomUUID());
 		this.name = setValidName(name);
@@ -43,6 +47,7 @@ public class Hero implements Serializable{
 		this.enabled = Optional.ofNullable(enabled).orElse(true);
 		this.createdAt = Optional.ofNullable(createdAt).orElse(new Date());
 		this.updatedAt = Optional.ofNullable(updatedAt).orElse(new Date());
+		this.totalWins = totalWins;
 	}
 	
 	public Hero(String name, String race, PowerStats stats, Boolean enabled) {
@@ -83,6 +88,16 @@ public class Hero implements Serializable{
 		}
 	}
 
+	public Hero updateOnlyMappedFields(Hero heroUpdated) {
+		
+		name = heroUpdated.getName();
+		race = heroUpdated.getRace();
+		updatedAt = heroUpdated.getUpdatedAt();
+		stats = stats.updateOnlyMappedFields(heroUpdated.getStats());
+		
+		return this;
+	}
+	
 	public UUID getId() {
 		return id;
 	}
@@ -103,6 +118,10 @@ public class Hero implements Serializable{
 		return stats;
 	}
 	
+	public int getTotalWins() {
+		return totalWins;
+	}
+	
 	@JsonIgnore
 	public UUID getStatsId() {
 		return stats.getId();
@@ -111,10 +130,6 @@ public class Hero implements Serializable{
 	@JsonIgnore
 	public int getTotalPower() {
 		return stats.weightedSumPowerStats();
-	}
-	
-	public void setStatsId(UUID id) {
-		this.stats.setId(id);
 	}
 
 	public boolean isEnabled() {
@@ -128,4 +143,10 @@ public class Hero implements Serializable{
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
+
+	@Override
+	public String toString() {
+		return "Hero [id=" + id + ", name=" + name + "]";
+	}
+	
 }

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gubee.interview.adapters.repository.HeroRepository;
 import br.com.gubee.interview.adapters.repository.PowerStatsRepository;
+import br.com.gubee.interview.application.business.inbound.HeroDTO;
 import br.com.gubee.interview.application.domain.Hero;
-import br.com.gubee.interview.application.dto.HeroDTO;
 import br.com.gubee.interview.application.services.CompareHeroesByIdService;
 import br.com.gubee.interview.application.services.CreateHeroService;
 import br.com.gubee.interview.application.services.DeleteHeroService;

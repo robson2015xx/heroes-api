@@ -1,4 +1,4 @@
-package br.com.gubee.interview.application.domain;
+package br.com.gubee.interview.application.business;
 
 public enum RaceEnum {
 
