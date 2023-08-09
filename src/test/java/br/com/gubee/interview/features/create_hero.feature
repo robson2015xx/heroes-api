@@ -1,6 +1,19 @@
-Feature: Create Hero
+Feature: Hero Creation
 
-  Scenario: Create a hero
-    Given a hero repository and power stats repository
-    When I create a hero with name "Superman"
-    Then the hero should be saved successfully
+  Scenario: Successfully create a hero
+    Given the power stats repository is available
+    And the hero repository is available
+    When I create a new hero with name "Batman" and the required attributes
+    Then the hero should be successfully saved
+
+  Scenario: Attempt to create hero with invalid power stats
+    Given the power stats repository is available
+    And the hero repository is available
+    When I create a new hero with name "Batman" and invalid power stats
+    Then the system should display an error message indicating invalid power stats
+
+  Scenario: Attempt to create hero without a name
+    Given the power stats repository is available
+    And the hero repository is available
+    When I create a new hero with empty name and power stats valid
+    Then the system should display an error message indicating the hero name is required

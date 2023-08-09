@@ -1,6 +1,6 @@
-Feature: Get Heroes by Name
+Feature: Get Hero By Name
 
-  Scenario: Get heroes by name
-    Given a hero repository
-    When I search for heroes with name "Superman"
-    Then I should receive a list of heroes
+  Scenario: Retrieve heroes with partial name
+    Given the get hero by name service is available
+    When I retrieve heroes with partial name "Bat"
+    Then I should get the list of matching heroes
