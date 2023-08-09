@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "8aa87e64-457c-44ce-a3d5-61c32b0e9ea0",
+		"name": "Teste Gubee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10881173"
+	},
+	"item": [
+		{
+			"name": "Create Hero",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"xRobsus2\",\r\n    \"race\": \"HUMAN\",\r\n    \"stats\": {\r\n        \"strength\": 30,\r\n        \"agility\": 20,\r\n        \"dexterity\": 50,\r\n        \"intelligence\": 80\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/heroes/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"heroes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Hero By Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Robsus2\",\r\n    \"race\": \"human\",\r\n    \"stats\": {\r\n        \"strength\": 30,\r\n        \"agility\": 20,\r\n        \"dexterity\": 50,\r\n        \"intelligence\": 80\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/heroes?name=Robs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"heroes"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Robs"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Hero by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Robsus2\",\r\n    \"race\": \"human\",\r\n    \"stats\": {\r\n        \"strength\": 30,\r\n        \"agility\": 20,\r\n        \"dexterity\": 50,\r\n        \"intelligence\": 80\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/heroes/2a00a626-4d9f-42cd-9a50-b72e6352f24c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"heroes",
+						"2a00a626-4d9f-42cd-9a50-b72e6352f24c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Hero",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Robsus2\",\r\n    \"race\": \"human\",\r\n    \"stats\": {\r\n        \"strength\": 30,\r\n        \"agility\": 20,\r\n        \"dexterity\": 50,\r\n        \"intelligence\": 80\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/heroes/2a00a626-4d9f-42cd-9a50-b72e6352f24c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"heroes",
+						"2a00a626-4d9f-42cd-9a50-b72e6352f24c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Hero",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Robs2\",\r\n    \"race\": \"divine\",\r\n    \"stats\": {\r\n        \"strength\": 22,\r\n        \"agility\": 20,\r\n        \"dexterity\": 50,\r\n        \"intelligence\": 80\r\n    },\r\n    \"enabled\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/heroes/2a00a626-4d9f-42cd-9a50-b72e6352f24c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"heroes",
+						"2a00a626-4d9f-42cd-9a50-b72e6352f24c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Compare Heroes By Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"heroOneId\": \"50167a65-ba73-4c58-a87a-5fa08657b77a\",\r\n    \"heroTwoId\": \"65e9dae7-0a2e-4aca-98cf-10fcec952c7d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/battles",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"battles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get history battles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"heroOneId\": \"50167a65-ba73-4c58-a87a-5fa08657b77a\",\r\n    \"heroTwoId\": \"65e9dae7-0a2e-4aca-98cf-10fcec952c7d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/gubee_backend_test/battles?heroId=65e9dae7-0a2e-4aca-98cf-10fcec952c7d",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gubee_backend_test",
+						"battles"
+					],
+					"query": [
+						{
+							"key": "heroId",
+							"value": "65e9dae7-0a2e-4aca-98cf-10fcec952c7d"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
