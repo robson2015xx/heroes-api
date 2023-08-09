@@ -28,10 +28,10 @@ public class HeroRowMapper implements RowMapper<Hero>{
 				rs.getString(9), 
 				rs.getString(10),
 				stats, 
-				rs.getBoolean(11), 
-				rs.getTimestamp(12), 
-				rs.getTimestamp(13),
-				rs.getInt(14));
+				rs.getBoolean(12), 
+				rs.getTimestamp(13), 
+				rs.getTimestamp(14),
+				rs.getInt(15));
 
 		return hero;
 	}

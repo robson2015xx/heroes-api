@@ -46,15 +46,14 @@ public class HeroRepository implements HeroRepositoryPort{
 	}
 
 	@Override
-	@Cacheable(value = "hero", key = "#id")
 	public Optional<Hero> findById(UUID id) {
 		
 		Hero hero = null; 
 		
 		try { 
-			hero = jdbcTemplate.queryForObject(QueryUtils.FIND_HERO_BY_ID_WITH_COUNT_WINS, new HeroRowMapper(), id.toString());
+			hero = jdbcTemplate.queryForObject(QueryUtils.FIND_HERO_BY_ID_WITH_COUNT_WINS, new HeroRowMapper(), id);
 		} catch (Exception ex) {
-			log.debug("Problems in get hero by id: ", ex);
+			log.info("Problems in get hero by id: ", ex);
 		}
 		return Optional.ofNullable(hero);
 	}
@@ -62,17 +61,7 @@ public class HeroRepository implements HeroRepositoryPort{
 	@Override
 	@Cacheable(value = "hero", key = "#name")
 	public List<Hero> findByNameLike(String name) {
-		List<Hero> heroes = jdbcTemplate.query("select "
-				+ "	ps.*, h.*, count(bh.id) "
-				+ "from "
-				+ "	hero h "
-				+ "join  "
-				+ "	power_stats ps "
-				+ "on h.power_stats_id = ps.id "
-				+ "left join "
-				+ " battle_history bh "
-				+ "on bh.hero_win_id = h.id"
-				+ "where h.name like '%" + name + "%'", new HeroRowMapper());
+		List<Hero> heroes = jdbcTemplate.query(QueryUtils.findHeroesByNameLikeWithCounter(name), new HeroRowMapper());
 		return heroes;
 	}
 

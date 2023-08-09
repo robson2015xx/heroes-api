@@ -30,6 +30,13 @@ public class BusinessValidationException extends RuntimeException {
 		this.details = details;
 		this.errors = List.of(new ErrorDTO(details, message));
 	}
+	
+	public BusinessValidationException(String message, String details, int status) {
+		super(message);
+		this.status = status;
+		this.details = details;
+		this.errors = List.of(new ErrorDTO(details, message));
+	}
 
 	public BusinessValidationException(String message, int status) {
 		super(message);
@@ -69,7 +76,7 @@ public class BusinessValidationException extends RuntimeException {
 		super(message, e);
 		this.details = "";
 		this.status = DEFAULT_HTTP_STATUS_CODE;
-		this.errors = List.of(new ErrorDTO(e.getStackTrace()[0].toString(), e.getMessage()));
+		this.errors = List.of(new ErrorDTO(e.getMessage(), message));
 	}
 
 	public BusinessValidationException(String message, Exception e, int status) {

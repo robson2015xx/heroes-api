@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.gubee.interview.application.business.ResponseMessageConstants;
+
 public class DeleteHeroResponse {
 
 	private String message;
@@ -13,7 +15,7 @@ public class DeleteHeroResponse {
 	
 	public DeleteHeroResponse() {
 		super();
-		message = "";
+		message = ResponseMessageConstants.HERO_HAS_BEEN_DELETED;
 		timestamp = new Date();
 	}
 

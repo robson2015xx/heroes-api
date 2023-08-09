@@ -1,7 +1,6 @@
 package br.com.gubee.interview.adapters.controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.gubee.interview.adapters.repository.BattleRepository;
 import br.com.gubee.interview.adapters.repository.HeroRepository;
 import br.com.gubee.interview.adapters.repository.PowerStatsRepository;
 import br.com.gubee.interview.application.business.inbound.HeroDTO;
+import br.com.gubee.interview.application.business.outbound.DeleteHeroResponse;
 import br.com.gubee.interview.application.domain.Hero;
-import br.com.gubee.interview.application.services.CompareHeroesByIdService;
 import br.com.gubee.interview.application.services.CreateHeroService;
 import br.com.gubee.interview.application.services.DeleteHeroService;
 import br.com.gubee.interview.application.services.GetHeroByIdService;
@@ -38,6 +38,9 @@ public class HeroController {
 	@Autowired
 	private PowerStatsRepository powerStatsRepository;
 
+	@Autowired
+	private BattleRepository battleRepository;
+	
 	@PostMapping("/")
 	@Transactional(rollbackFor = Exception.class)
 	public ResponseEntity<Hero> createHero(@RequestBody HeroDTO heroDTO) {
@@ -55,10 +58,9 @@ public class HeroController {
 
 	@DeleteMapping("/{id}")
 	@Transactional(rollbackFor = Exception.class)
-	public ResponseEntity<String> deleteHero(@PathVariable("id") UUID id) {
-		DeleteHeroService deleteHeroService = new DeleteHeroService(heroRepository, powerStatsRepository);
-		deleteHeroService.execute(id);
-		return ResponseEntity.ok().body("OK");
+	public ResponseEntity<DeleteHeroResponse> deleteHero(@PathVariable("id") UUID id) {
+		DeleteHeroService deleteHeroService = new DeleteHeroService(heroRepository, powerStatsRepository, battleRepository);
+		return ResponseEntity.ok().body(deleteHeroService.execute(id));
 	}
 	
 	@PutMapping("/{id}")
@@ -73,12 +75,5 @@ public class HeroController {
 	public ResponseEntity<Hero> getHeroById(@PathVariable("id") UUID id) {
 		GetHeroByIdService getHeroByIdService = new GetHeroByIdService(heroRepository);
 		return ResponseEntity.ok().body(getHeroByIdService.execute(id));
-	}
-	
-	@GetMapping("/{heroId}/compare")
-	@Transactional(rollbackFor = Exception.class)
-	public ResponseEntity<Map<String, Object>> compareHeroesById(@PathVariable UUID heroId, @RequestParam UUID heroIdToCompare) {
-		CompareHeroesByIdService compareHeroesByIdService = new CompareHeroesByIdService(heroRepository);
-		return ResponseEntity.ok().body(compareHeroesByIdService.execute(heroId, heroIdToCompare));
 	}
 }

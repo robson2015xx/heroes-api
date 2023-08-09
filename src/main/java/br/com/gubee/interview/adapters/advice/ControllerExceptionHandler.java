@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.fasterxml.jackson.core.JsonParseException;
 
 import br.com.gubee.interview.application.business.ErrorMessagesConstants;
+import br.com.gubee.interview.application.business.outbound.ExceptionResponse;
 import br.com.gubee.interview.application.exceptions.BusinessValidationException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,18 +76,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return buildInvalidDataExceptions(ex, request);
 	}
 
-	@ExceptionHandler(BusinessValidationException.class)
-	public final ResponseEntity<ExceptionResponse> handleCustomizedException(BusinessValidationException ex,
-			WebRequest request) {
-		HttpStatus status = HttpStatus.valueOf(ex.getStatus());
-		String traceld = Optional.ofNullable(request.getHeader("X-traceld")).orElse(UUID.randomUUID().toString());
-		String message = ex.getMessage();
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), message, request.getDescription(false),
-				status.toString(), traceld, ex.getErrors());
-		log.error(message, ex);
-		return ResponseEntity.status(status).header("X-traceId", traceld).body(exceptionResponse);
-	}
-
 	@ExceptionHandler(TimeoutException.class)
 	public final ResponseEntity<ExceptionResponse> handleTimeoutException(TimeoutException ex, WebRequest request) {
 		HttpStatus status = HttpStatus.REQUEST_TIMEOUT;
@@ -99,6 +90,22 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(SQLSyntaxErrorException.class)
 	public final ResponseEntity<Object> handleSOLSyntaxErrorException(SQLSyntaxErrorException ex, WebRequest request) {
+		return buildInvalidDataExceptions(ex, request);
+	}
+	
+	@ExceptionHandler(DuplicateKeyException.class)
+	public final ResponseEntity<?> handleDuplicateKeyException(DuplicateKeyException ex, WebRequest request) {
+		if (ex.getCause() instanceof PSQLException) {
+			PSQLException exc = (PSQLException) ex.getCause();
+			HttpStatus status = HttpStatus.BAD_REQUEST;
+			String traceld = Optional.ofNullable(request.getHeader("X-traceId")).orElse(UUID.randomUUID().toString());
+			List<ErrorDTO> errors = new ArrayList<>();
+			errors.add(new ErrorDTO(exc.getServerErrorMessage().getDetail(), exc.getServerErrorMessage().getMessage()));
+			ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ErrorMessagesConstants.INVALID_DATA_TO_PERSIST,
+					request.getDescription(false), status.toString(), traceld, errors);
+			log.error("Invalid payload, unprocessable: ", ex);
+			return ResponseEntity.status(status).header("X-traceId", traceld).body(exceptionResponse);
+		}
 		return buildInvalidDataExceptions(ex, request);
 	}
 
@@ -129,6 +136,18 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return buildNotFoundExceptions(ex, request);
 	}
 
+	@ExceptionHandler(BusinessValidationException.class)
+	public final ResponseEntity<ExceptionResponse> handleCustomizedException(BusinessValidationException ex,
+			WebRequest request) {
+		HttpStatus status = HttpStatus.valueOf(ex.getStatus());
+		String traceld = Optional.ofNullable(request.getHeader("X-traceld")).orElse(UUID.randomUUID().toString());
+		String message = ex.getMessage();
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), message, request.getDescription(false),
+				status.toString(), traceld, ex.getErrors());
+		log.error(message, ex);
+		return ResponseEntity.status(status).header("X-traceId", traceld).body(exceptionResponse);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<ExceptionResponse> handleGenericException(Exception ex, WebRequest request) {
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;

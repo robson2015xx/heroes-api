@@ -13,6 +13,24 @@ public class PowerStatsDTO {
 	private int intelligence;
 	
 	public PowerStatsDTO() {}
+		
+	public PowerStatsDTO(int strength, int agility, int dexterity, int intelligence) {
+		super();
+		this.strength = strength;
+		this.agility = agility;
+		this.dexterity = dexterity;
+		this.intelligence = intelligence;
+	}
+
+	public PowerStatsDTO(PowerStats stats) {
+		strength = stats.getStrength();
+		
+		agility = stats.getAgility();
+		
+		dexterity = stats.getDexterity();
+		
+		intelligence = stats.getIntelligence();
+	}
 
 	public PowerStats toPowerStats() {
 		return new PowerStats(strength, agility, dexterity, intelligence);

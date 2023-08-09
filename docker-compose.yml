@@ -78,7 +78,7 @@ services:
     networks:
       - backend
     volumes:
-      - /src/main/docker/proxy:/etc/nginx/conf.d
+      - ./src/main/docker/proxy:/etc/nginx/conf.d
     depends_on:
       - app
     ports:

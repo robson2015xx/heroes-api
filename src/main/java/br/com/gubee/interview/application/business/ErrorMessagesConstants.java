@@ -5,8 +5,9 @@ public class ErrorMessagesConstants {
 		public static final String TIMEOUT_EXCEPTION_MESSAGE = "A aplicação excedeu o tempo limite para resposta, tente novamente em alguns instantes.";
 		public static final String INVALID_DATA_MESSAGE = "Erro na requisição, favor validar o payload e o endpoint (erro de digitacao ou tipagem).";
 		public static final String NOT_FOUND_MESSAGE = "Caminho inválido, endpoint não encontrado.";
-		public static final String INVALID_HERO_ID = "Invalid hero identifier!";
-		public static final String NAME_IS_TOO_LONG = "Nome muito grande";
+		public static final String INVALID_DATA_TO_PERSIST = "Servidor encontrou problemas ao persistir o dado.";
+		public static final String INVALID_HERO_ID = "Herói não encontrado pelo ID.";
+		public static final String NAME_IS_TOO_LONG = "Nome muito grande.";
 		public static final String NAME_IS_MANDATORY = "Nome deve ser informado";
 		public static final String RACE_IS_MANDATORY = "Raça deve ser informada";
 		public static final String RACE_IS_INVALID = "Deve-se informar uma raça válida";

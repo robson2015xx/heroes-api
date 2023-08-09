@@ -1,4 +1,4 @@
-package br.com.gubee.interview.adapters.advice;
+package br.com.gubee.interview.application.business.outbound;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-class ExceptionResponse implements Serializable{
+import br.com.gubee.interview.adapters.advice.ErrorDTO;
+
+public class ExceptionResponse implements Serializable{
 
 	private static final long serialVersionUID = 2576463581334026303L;
 	

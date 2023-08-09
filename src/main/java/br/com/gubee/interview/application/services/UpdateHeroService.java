@@ -25,7 +25,7 @@ public class UpdateHeroService  {
 
 	private Hero updateHero(UUID id, Hero hero) {
 		Hero actualHero = heroRepository.findById(id).orElseThrow(() 
-				-> new BusinessValidationException(ErrorMessagesConstants.INVALID_HERO_ID, id.toString()));
+				-> new BusinessValidationException(ErrorMessagesConstants.INVALID_HERO_ID, id.toString(), 404));
 		hero = actualHero.updateOnlyMappedFields(hero);
 		powerStatsRepository.update(hero.getStats());
 		heroRepository.update(hero);
